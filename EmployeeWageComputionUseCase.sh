@@ -6,8 +6,8 @@ EMP_RATE_PER_HR=20
 WORKING_DAYS=20
 MAX_HRS_IN_MONTH=90
 MAX_HRS=90
-#difien array
-declare -a empWageArray
+#difie dictionary
+declare -A empWageDict
 #DEFINE VARIABLE
 totalWorkingDays=0
 totalEmpHrs=0
@@ -25,7 +25,6 @@ case $empCheck in
 esac
 echo $empHrs
 }
-
 while [ $totalWorkingDays -le $WORKING_DAYS ] && [ $totalEmpHrs -lt $MAX_HRS ]
 do
         #define variable
@@ -36,9 +35,16 @@ do
         #calling a function
         empHrs="$(getWorkingHrs $empCheck )"
         totalEmpHrs=$(( $totalEmpHrs +$empHrs ))
-        empWageArray[$totalWorkingDays]=$(( $empHrs * $EMP_RATE_PER_HR ))
+        empWageDict[$totalWorkingDays]=$(( $empHrs * $EMP_RATE_PER_HR))
 
 done
+
 salary=$(( $totalEmpHrs * $EMP_RATE_PER_HR ))
-echo "Day ${!empWageArray[@]}"
-echo "daily wages:${empWageArray[@]}"
+echo "Day ${!empWageDict[@]}"
+echo "daily wages:${empWageDict[@]}"
+
+#for key in ${!empWageDict[@]}
+#do
+#       echo "$key:${empWageDict[@]}"
+#done
+
