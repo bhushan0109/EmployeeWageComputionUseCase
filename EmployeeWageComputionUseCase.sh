@@ -5,11 +5,12 @@ IS_PRESENT_PART_TIME=2
 EMP_RATE_PER_HR=20
 WORKING_DAYS=20
 MAX_HRS_IN_MONTH=90
-MAX_HRS=20
+MAX_HRS=90
+#difien array
+declare -a empWageArray
 #DEFINE VARIABLE
 totalWorkingDays=0
 totalEmpHrs=0
-
 function getWorkingHrs()
 {
         local empCheck=$1
@@ -24,6 +25,7 @@ case $empCheck in
 esac
 echo $empHrs
 }
+
 while [ $totalWorkingDays -le $WORKING_DAYS ] && [ $totalEmpHrs -lt $MAX_HRS ]
 do
         #define variable
@@ -34,5 +36,9 @@ do
         #calling a function
         empHrs="$(getWorkingHrs $empCheck )"
         totalEmpHrs=$(( $totalEmpHrs +$empHrs ))
+        empWageArray[$totalWorkingDays]=$(( $empHrs * $EMP_RATE_PER_HR ))
+
 done
 salary=$(( $totalEmpHrs * $EMP_RATE_PER_HR ))
+echo "Day ${!empWageArray[@]}"
+echo "daily wages:${empWageArray[@]}"
