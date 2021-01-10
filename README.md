@@ -1,2 +1,3 @@
 # EmployeeWageComputionUseCase
-bridgelab
+
+To report employee wage
